@@ -47,21 +47,21 @@ elif (re.match('\d{9}',busrouteid)) :
 
     # write 즉, 출력내용 구하기 : 버스 번호, 좌표값
 
-    x = soup.find('tmX').text
-    y = soup.find('tmY').text
+    lon = soup.find('tmX').text
+    lat = soup.find('tmY').text
     busnum = soup.find('plainNo').text
 
-    data_key = ['busnum', 'x', 'y']
-    data_list = [busnum, x, y]
-    data_dict = {}
+    data_key = ['busnum', 'LAT', 'lon']
+    data_list = [busnum, lat, lon]
+    data_dict = {'lat':[float(lat)], 'lon':[float(lon)]}
 
 
-    for i, data in enumerate(data_list) : 
-        data_dict[f'{data_key[i]}'] = data
-        
+    
     
     st.write('bus number : ' + busnum)
     st.write(data_dict)
+    
+    st.map(data=data_dict,zoom=10)
     
 
 # if 만약 입력된 정보가 틀리다면 Error msg를 띄운다.
